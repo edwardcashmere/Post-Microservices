@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+      - name: posts
+        image: edwarde/post:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+#posts internal service
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv-clusterip
+spec:
+  selector:
+    app:  posts
+  ports:
+  - name: posts
+    protocol: TCP
+    port: 4000
+    targetPort: 4000

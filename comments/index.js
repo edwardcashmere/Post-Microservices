@@ -37,14 +37,14 @@ app.post('/posts/:id/comments',async(req, res)=>{
             "Content-Type": "application/json"
         }
     }
-    await axios.post('http://localhost:4005/events',{type:'COMMENTCREATED',data:{id:commentId,content,postId:req.params.id,status:'pending'}},config)
+    await axios.post('http://event-bus-srv:4005/events',{type:'COMMENTCREATED',data:{id:commentId,content,postId:req.params.id,status:'pending'}},config)
 
     res.status(201).send(comments)
 
 })
 
 app.post('/events',async(req, res)=>{
-    //console.log('the event was emited is :'+ req.body.type)
+    console.log('the event was emited is :'+ req.body.type)
     const {type,data}=req.body
 if(type==='COMMENTMODERATED'){
     const { postId,id,status,content}=data
@@ -59,7 +59,7 @@ if(type==='COMMENTMODERATED'){
 
     comment.status=status
 
-    await axios.post('http://localhost:4005/events',{type:'COMMENT_UPDATED',data:{id,postId,status,content}},config)
+    await axios.post('http:/event-bus-srv:4005/events',{type:'COMMENT_UPDATED',data:{id,postId,status,content}},config)
 
 
     

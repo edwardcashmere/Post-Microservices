@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+      - name: query
+        image: edwarde/query
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: query-src-clusterip
+spec:
+  selector:
+    app: query
+  ports:
+    - name: query
+      protocol: TCP
+      port: 4002
+      targetPort: 4002
+  #query internal service

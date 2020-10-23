@@ -15,8 +15,9 @@ app.post('/events',async(req, res)=>{
         }
     }
     if(type === 'COMMENTCREATED'){
+        console.log('event coming in:' + req.body.type)
         const status=data.content.toLowerCase().includes('fuck')?'rejected':'approved'
-        await axios.post('http://localhost:4005/events',{type:'COMMENTMODERATED',data:{id:data.id,content:data.content,status,postId:data.postId}},config)
+        await axios.post('http://event-bus-srv:4005/events',{type:'COMMENTMODERATED',data:{id:data.id,content:data.content,status,postId:data.postId}},config)
     }
 
 })

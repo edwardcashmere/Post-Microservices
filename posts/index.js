@@ -26,14 +26,15 @@ app.post('/posts',async(req,res)=>{
             "Content-Type": "application/json"
         }
     }
-    await axios.post('http://localhost:4005/events',{type:'POSTCREATED',data:{id,title},config})
+    await axios.post('http://event-bus-srv:4005/events',{type:'POSTCREATED',data:{id,title},config})
     res.status(201).send(posts[id])
 })
 app.post('/events',(req,res)=>{
-  //  console.log(`event emitted succesfully to: ${req.body.type}`)
+   console.log(`event emitted succesfully to: ${req.body.type}`)
     res.send({})
 })
 
 app.listen(4000,()=>{
+    console.log('changed')
     console.log('posts server is running on port 4000')
 })

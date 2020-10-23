@@ -15,10 +15,10 @@ app.post('/events',(req,res)=>{
     }
     const event = req.body
     events.push(event)
-    axios.post('http://localhost:4000/events',event,config);
-    axios.post('http://localhost:4001/events',event,config);
-    axios.post('http://localhost:4002/events',event,config);
-    axios.post('http://localhost:4003/events',event,config);
+    axios.post('http://posts-srv-clusterip:4000/events',event,config);
+    axios.post('http://comment-srv-clusterip:4001/events',event,config);
+    axios.post('http://query-src-clusterip:4002/events',event,config);
+    axios.post('http://moderation-src-clusterip:4003/events',event,config);
 
     res.send({ status: 'OK'})
 })
