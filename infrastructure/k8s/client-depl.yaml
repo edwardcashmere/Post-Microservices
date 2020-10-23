@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-bus-depl
+  name: client-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event-bus
+      app: client
   template:
     metadata:
       labels:
-        app: event-bus
+        app: client
     spec:
       containers:
-      - name: event-bus
-        image: edwarde/event-bus
+      - name: client
+        image: edwarde/client
         resources:
           limits:
             memory: "128Mi"
@@ -23,14 +23,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: event-bus-srv
+  name: client-src-clusterip
 spec:
   selector:
-    app:  event-bus
+    app: client
   ports:
-  - name: event-bus
+  - name: client
     protocol: TCP
-    port: 4005
-    targetPort: 4005
-
+    port: 3000
+    targetPort: 3000
+    
 

@@ -68,6 +68,7 @@ From here you can create posts and comments and see the functionaly.Run some tes
 
 ## To Come
 The docker intergration will have kubernetes for conatiner orchestration and addiction of json-server for the DB and 
+For k8's orcherstration  clone the alpha branch
 
 
 
